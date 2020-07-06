@@ -62,17 +62,20 @@ class Repository {
     lastText = lastRecord['msg'];
     last.insert(6, lastTime);
     last.insert(7, lastText);
+    print('initial last $last');
   }
 
-  Future<List<String>> lastTextAndTime() async {
+  Future<void> lastTextAndTime() async {
     List<Map<String, dynamic>> records = await readData(
         firstnames[currentIndex]);
     Map<String, dynamic> lastRecord = records.last;
 
     String lastTime = lastRecord['time'];
     String lastText = lastRecord['msg'];
-    last.insert(currentIndex * 2, lastTime);
-    last.insert(currentIndex * 2 + 1, lastText);
+    last[currentIndex * 2] = lastTime;
+    last[currentIndex * 2 + 1] = lastText;
+    print('updated last $last');
+
   }
 
   Future<void> insertMockChats() async {

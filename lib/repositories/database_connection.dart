@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 class DatabaseConnection {
   setDatabase() async {
     var directory = await getApplicationDocumentsDirectory();
-    var path = join(directory.path, 'db');
+    var path = join(directory.path, 'db12');
     var database =
         await openDatabase(path, version: 1, onCreate: _onCreatingDatabase);
     return database;

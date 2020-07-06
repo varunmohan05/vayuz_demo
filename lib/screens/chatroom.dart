@@ -102,7 +102,7 @@ class _ChatsState extends State<Chats> {
                                               color: Color(0xFFFFFFFF)),
                                         ),
                                         Text(
-                                          '${last.elementAt(index * 2)}',
+                                          '${Con.last.elementAt(index * 2)}',
                                           style: TextStyle(
                                               fontFamily: 'Lato',
                                               fontSize: 13,
@@ -114,7 +114,7 @@ class _ChatsState extends State<Chats> {
                                       padding: EdgeInsets.only(top: 5),
                                     ),
                                     Text(
-                                      '${last.elementAt(index * 2 + 1)}',
+                                      '${Con.last.elementAt(index * 2 + 1)}',
                                       style: TextStyle(
                                           fontFamily: 'Lato',
                                           fontStyle: FontStyle.italic,
