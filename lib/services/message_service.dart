@@ -9,16 +9,20 @@ class MessageService {
   }
 
   // Create data
-  saveMessage(C.Message message) async {
-    return await _repository.insertData('messages', message.messageMap());
+  saveMessage(String table, C.Message message) async {
+    return await _repository.insertData(table, message.messageMap());
   }
 
   // Read data from table
-  Future<List<Map<String, dynamic>>> readMessages() async {
-    return await _repository.readData('messages');
+  Future<List<Map<String, dynamic>>> readMessages(String table) async {
+    return await _repository.readData(table);
   }
 
-  Future<List<String>> lastShow() async {
-    return await _repository.lastTextandTime('messages');
+  Future<void> lastShow() async {
+    return await _repository.lastTextAndTime();
+  }
+
+  Future<void> initialLastShow() async {
+    return await _repository.initialLastTextandTime();
   }
 }

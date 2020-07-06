@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vayuzdemo/constants.dart';
 import 'package:vayuzdemo/screens/chat.dart';
 import 'package:vayuzdemo/screens/chatroom.dart';
+import 'package:vayuzdemo/services/message_service.dart';
 
 PageController myPage;
 var selectedPage;
@@ -32,8 +34,21 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  var _messageService = MessageService();
+
+  initialUpdateLastTextAndTime() async {
+    setState(() {
+      loading = true;
+    });
+    await _messageService.initialLastShow();
+    setState(() {
+      loading = false;
+    });
+  }
+
   @override
   void initState() {
+    initialUpdateLastTextAndTime();
     super.initState();
     myPage = PageController(initialPage: 0);
     selectedPage = 0;
@@ -130,7 +145,12 @@ class _AppState extends State<App> {
             ),
           ],
         ),
-        body: PageView(
+        body: loading
+            ? Center(
+          child: Container(
+              height: 20, width: 20, child: CircularProgressIndicator()),
+        )
+            : PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: myPage,
           children: <Widget>[

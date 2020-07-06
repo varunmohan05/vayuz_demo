@@ -26,7 +26,8 @@ class _ChatDetailsState extends State<ChatDetails> {
         () => _scrollController
             .jumpTo(_scrollController.position.maxScrollExtent));
     _messageList = List<Message>();
-    List<Map<String, dynamic>> messages = await _messageService.readMessages();
+    List<Map<String, dynamic>> messages = await _messageService.readMessages(
+        firstnames[currentIndex]);
 
     messages.forEach((message) {
       setState(() {
@@ -164,9 +165,22 @@ class _ChatDetailsState extends State<ChatDetails> {
                                 _scrollController.position.maxScrollExtent));
                         _message.isMe = 1;
                         _message.msg = textEditingController.text;
-
+                        _message.time = '${DateTime
+                            .now()
+                            .hour > 9 ? DateTime
+                            .now()
+                            .hour : '0''${DateTime
+                            .now()
+                            .hour}'}:${DateTime
+                            .now()
+                            .minute > 9 ? DateTime
+                            .now()
+                            .minute : '0''${DateTime
+                            .now()
+                            .minute}'}';
                         var result =
-                            await _messageService.saveMessage(_message);
+                        await _messageService.saveMessage(
+                            firstnames[currentIndex], _message);
                         textEditingController.clear();
                         if (result > 0) {
                           print(result);

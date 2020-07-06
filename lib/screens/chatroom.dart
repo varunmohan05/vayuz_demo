@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vayuzdemo/constants.dart' as Con;
+import 'package:vayuzdemo/constants.dart';
 import 'package:vayuzdemo/main.dart';
 import 'package:vayuzdemo/services/message_service.dart';
 
-import 'chat.dart';
 
 class Chats extends StatefulWidget {
   @override
@@ -11,18 +11,17 @@ class Chats extends StatefulWidget {
 }
 
 class _ChatsState extends State<Chats> {
-  bool loading = false;
   var _messageService = MessageService();
-  List<String> last = ['', ''];
   updateLastTextAndTime() async {
     setState(() {
       loading = true;
     });
-    last = await _messageService.lastShow();
+    await _messageService.lastShow();
     setState(() {
       loading = false;
     });
   }
+
 
   @override
   void initState() {
@@ -34,12 +33,7 @@ class _ChatsState extends State<Chats> {
 
   @override
   Widget build(BuildContext context) {
-    return loading
-        ? Center(
-            child: Container(
-                height: 20, width: 20, child: CircularProgressIndicator()),
-          )
-        : SingleChildScrollView(
+    return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -108,7 +102,7 @@ class _ChatsState extends State<Chats> {
                                               color: Color(0xFFFFFFFF)),
                                         ),
                                         Text(
-                                          '${last.elementAt(0)}',
+                                          '${last.elementAt(index * 2)}',
                                           style: TextStyle(
                                               fontFamily: 'Lato',
                                               fontSize: 13,
@@ -120,7 +114,7 @@ class _ChatsState extends State<Chats> {
                                       padding: EdgeInsets.only(top: 5),
                                     ),
                                     Text(
-                                      '${last.elementAt(1)}',
+                                      '${last.elementAt(index * 2 + 1)}',
                                       style: TextStyle(
                                           fontFamily: 'Lato',
                                           fontStyle: FontStyle.italic,
